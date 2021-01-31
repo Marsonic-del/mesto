@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>mesto</title>
+</head>
+
+<body class="body">
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="./images/logo.svg" alt="Логотип mesto">
+        </header>
+        <div class="main">
+            <section class="profile">
+                <img class="profile__avatar" src="./images/J.E.Cousteau.jpg" alt="Жак-Ив Кусто">
+                <div class="profile__info">
+                    <div class="profile__wrapper">
+                        <h1 class="profile__heading">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button" aria-label="Кнопка редактирования"></button>
+                    </div>                   
+                    <p class="profile__heading-description">Исследователь океана</p>                    
+                </div>
+                <button class="profile__add-button" aria-label="Кнопка добавить"></button>             
+            </section>
+
+            <ul class="elements">
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Karachaevsk.jpg" alt="Карачаевск">
+                        <div class="element__description">
+                            <h2 class="element__name">Карачаевск</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
+                        <div class="element__description">
+                            <h2 class="element__name">Гора Эльбрус</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Dombay.jpg" alt="Горная территория Домбай">
+                        <div class="element__description">
+                            <h2 class="element__name">Домбай</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
+                        <div class="element__description">
+                            <h2 class="element__name">Гора Эльбрус</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Dombay.jpg" alt="Горная территория Домбай">
+                        <div class="element__description">
+                            <h2 class="element__name">Домбай</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <article class="element">
+                        <img class="element__picture" src="./images/Karachaevsk.jpg" alt="Карачаевск">
+                        <div class="element__description">
+                            <h2 class="element__name">Карачаево-Черкессия</h2>
+                            <button class="button-like"></button>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+        </div>
+        
+        <footer class="footer">
+            <p class="footer__text">&copy; 2021 Mesto Russia</p>
+        </footer>
+    </div>
+    <section class="popup">
+        <div class="popup__container">
+            <h3 class="popup__heading">Редактировать профиль</h3>
+            <input type="text" placeholder="Имя" class="popup__text popup__text_type_name">
+            <input type="text" placeholder="О себе" class="popup__text popup__text_type_about">
+            <button class="popup__btn" aria-label="Сохранить">Сохранить</button>
+            <button class="popup__btn-close" aria-label="Закрыть попап"></button>
+        </div>
+    </section>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>

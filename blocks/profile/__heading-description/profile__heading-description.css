@@ -1,0 +1,14 @@
+.profile__heading-description {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.22;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (max-width:680px) {
+    .profile__heading-description {
+        font-size: 14px;
+        text-align: center;
+    }
+}
