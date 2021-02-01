@@ -89,11 +89,13 @@
     </div>
     <section class="popup">
         <div class="popup__container">
-            <h3 class="popup__heading">Редактировать профиль</h3>
-            <input type="text" placeholder="Имя" class="popup__text popup__text_type_name">
-            <input type="text" placeholder="О себе" class="popup__text popup__text_type_about">
-            <button class="popup__btn" aria-label="Сохранить">Сохранить</button>
-            <button class="popup__btn-close" aria-label="Закрыть попап"></button>
+            <form class="popup__form" name="popup-form">
+                <h3 class="popup__heading">Редактировать профиль</h3>
+                <input type="text" placeholder="Имя" class="popup__text popup__text_type_name" name="heading-name">
+                <input type="text" placeholder="О себе" class="popup__text popup__text_type_about" name="job">
+                <button type="submit" class="popup__btn" aria-label="Сохранить">Сохранить</button>
+                <button class="popup__btn-close" aria-label="Закрыть попап"></button>
+            </form>
         </div>
     </section>
     <script src="./scripts/main.js"></script>
