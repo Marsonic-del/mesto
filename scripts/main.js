@@ -11,7 +11,6 @@ let savePopupButton = popup.querySelector('.popup__btn');
 
 
 function togglePopap (evt) {
-    console.log('ok')
     evt.preventDefault();
     popup.classList.toggle('popup_opened')
     inputName.value = heading.textContent;
@@ -22,7 +21,7 @@ function togglePopap (evt) {
 
 function closePopup (evt) {
     if(evt.target === evt.currentTarget) {
-        togglePopap(evt)
+        popup.classList.toggle('popup_opened')
     }
 }
 
@@ -36,6 +35,11 @@ function formSubmitHandler(evt) {
 
 formElement.addEventListener('submit', formSubmitHandler);
 popupOpenButton.addEventListener('click', togglePopap)
-popupCloseButton.addEventListener('click', togglePopap)
+
+popupCloseButton.addEventListener('click', function () {
+    popup.classList.remove('popup_opened');
+});
+
+
 popup.addEventListener('click', closePopup)
 

@@ -2,7 +2,7 @@
     width: 24px;
     height: 24px;
     transition: opacity linear 0.25s;
-    cursor: url("../../../images/cursor.svg"), pointer;
+    cursor: pointer;
     background-image: url("../../../images/EditButton.svg");
     background-color: #000000;
     background-position: center;

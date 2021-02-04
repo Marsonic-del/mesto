@@ -12,7 +12,8 @@
     margin: 18px 0 37px 36px;
     padding: 0;
     transition: opacity linear 0.25s;
-    cursor: url("../../../images/cursor.svg"), pointer;
+    cursor: pointer;
+    border: 0;
 }
 
 .popup__btn:hover {

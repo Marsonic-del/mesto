@@ -1,4 +1,4 @@
-.elements {
+.elements-list {
     max-width: 880px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -9,14 +9,14 @@
 }
 
 @media screen and (max-width: 1000px) {
-    .elements {
+    .elements-list {
         grid-template-columns: repeat(2, 1fr);
         column-gap: 10px;
     }
 }
 
 @media screen and (max-width: 574px) {
-    .elements {
+    .elements-list {
         width: calc(100% - 38px);
         margin-bottom: 48px;
         grid-template-columns: 100%;

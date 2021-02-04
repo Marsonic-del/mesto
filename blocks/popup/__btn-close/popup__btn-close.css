@@ -9,7 +9,7 @@
     right: calc((100vw - 430px)/2 - 40px);
     padding: 0;
     transition: opacity linear 0.25s;
-    cursor: url("../../../images/cursor.svg"), pointer;
+    cursor: pointer;
 }
 
 .popup__btn-close:hover {
