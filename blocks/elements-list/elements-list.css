@@ -10,15 +10,45 @@
 
 @media screen and (max-width: 1000px) {
     .elements-list {
-        grid-template-columns: repeat(2, 1fr);
         column-gap: 10px;
     }
 }
 
-@media screen and (max-width: 574px) {
+@media screen and (max-width: 880px) {
+    .elements-list {
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 48px;     
+        max-width: 680px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .elements-list {       
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 615px) {
+    .elements-list {
+        width: 65%;
+        grid-template-columns: 100%;
+    }
+}
+
+@media screen and (max-width: 515px) {
+    .elements-list {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .elements-list {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 366px) {
     .elements-list {
         width: calc(100% - 38px);
-        margin-bottom: 48px;
-        grid-template-columns: 100%;
     }
 }
