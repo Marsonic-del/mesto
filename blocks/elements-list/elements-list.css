@@ -17,11 +17,7 @@
 @media screen and (max-width: 880px) {
     .elements-list {
         grid-template-columns: repeat(2, 1fr);
-<<<<<<< HEAD
-        margin-bottom: 48px;     
-=======
-        margin-bottom: 48px;       
->>>>>>> 00dd1a72f8d927daac04cf9354641656b8d46a18
+        margin-bottom: 48px;
         max-width: 680px;
     }
 }
