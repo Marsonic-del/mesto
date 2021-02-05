@@ -4,27 +4,3 @@
     margin: 25px 0 31px 21px;
     
 }
-
-@media screen and (max-width:1000px) {
-    .element__description {
-        width: 90%;
-    }
-}
-
-@media screen and (max-width:618px) {
-    .element__description {
-        width: 246px;
-    }
-}
-
-@media screen and (max-width: 574px) {
-    .element__description {
-        width: 90%;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .element__description {
-        width: 246px;
-    }
-}

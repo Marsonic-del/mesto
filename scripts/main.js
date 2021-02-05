@@ -25,6 +25,10 @@ function closePopup (evt) {
     }
 }
 
+function closePopupByButton () {
+    popup.classList.remove('popup_opened');
+}
+
 function formSubmitHandler(evt) {
     evt.preventDefault();
     heading.textContent = inputName.value;
@@ -36,9 +40,7 @@ function formSubmitHandler(evt) {
 formElement.addEventListener('submit', formSubmitHandler);
 popupOpenButton.addEventListener('click', togglePopap)
 
-popupCloseButton.addEventListener('click', function () {
-    popup.classList.remove('popup_opened');
-});
+popupCloseButton.addEventListener('click', closePopupByButton);
 
 
 popup.addEventListener('click', closePopup)
