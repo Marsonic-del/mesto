@@ -27,60 +27,7 @@
 
             <section class="elements">
                 <ul class="elements-list">
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Karachaevsk.jpg" alt="Карачаевск">
-                            <div class="element__description">
-                                <h2 class="element__name">Карачаевск</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
-                            <div class="element__description">
-                                <h2 class="element__name">Гора Эльбрус</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Dombay.jpg" alt="Горная территория Домбай">
-                            <div class="element__description">
-                                <h2 class="element__name">Домбай</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
-                            <div class="element__description">
-                                <h2 class="element__name">Гора Эльбрус</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Dombay.jpg" alt="Горная территория Домбай">
-                            <div class="element__description">
-                                <h2 class="element__name">Домбай</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="element">
-                            <img class="element__picture" src="./images/Karachaevsk.jpg" alt="Карачаевск">
-                            <div class="element__description">
-                                <h2 class="element__name">Карачаево-Черкессия</h2>
-                                <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                            </div>
-                        </article>
-                    </li>
+                   
                 </ul>
             </section>
         </main>
@@ -89,15 +36,45 @@
             <p class="footer__text">&copy; 2021 Mesto Russia</p>
         </footer>
     </div>
-    <section class="popup">
-        <form class="popup__form" name="popup-form">
-            <h3 class="popup__heading">Редактировать&nbsp;профиль</h3>
-            <input type="text" placeholder="Имя" class="popup__text popup__text_type_name" name="heading-name">
-            <input type="text" placeholder="О себе" class="popup__text popup__text_type_about" name="job">
-            <button type="submit" class="popup__btn" aria-label="Сохранить">Сохранить</button>
-            <button type="reset" class="popup__btn-close" aria-label="Закрыть попап"></button>
-        </form>
-    </section>
+    <div class="popup-container">
+        <section class="popup popup_E1">          
+            <form class="popup__form" name="popup-form">
+                <button type="button" class="popup__btn-close" aria-label="Закрыть попап"></button>
+                <h3 class="popup__heading">Редактировать&nbsp;профиль</h3>
+                <input type="text" placeholder="Имя" class="popup__text popup__text_type_name" name="heading-name">
+                <input type="text" placeholder="О себе" class="popup__text popup__text_type_about" name="job">
+                <button type="submit" class="popup__btn" aria-label="Сохранить">Сохранить</button>            
+            </form>
+        </section>
+        <section class="popup popup_E2">          
+            <form class="popup__form" name="popup-form">
+                <button type="button" class="popup__btn-close" aria-label="Закрыть попап"></button>
+                <h3 class="popup__heading">Новое место</h3>
+                <input type="text" placeholder="Название" class="popup__text popup__text_type_name" name="heading-name">
+                <input type="text" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link" name="link">
+                <button type="submit" class="popup__btn" aria-label="Создать">Создать</button>             
+            </form>
+        </section>
+        <section class="popup popup_image">
+            <div class="popup__container">
+                <img class="popup__picture" alt="#" src="#">
+                <p class="popup__caption"></p>
+                <button type="button" class="popup__btn-close" aria-label="Закрыть попап"></button>
+            </div>
+        </section>
+    </div>
+    <template class="element-template">
+        <li class="elements-list__item">           
+            <article class="element">
+                <img class="element__trash" alt="Корзина" src="./images/Trash.svg">
+                <img class="element__picture" >
+                <div class="element__description">
+                    <h2 class="element__name"></h2>
+                    <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
+                </div>
+            </article>
+        </li>
+    </template>
     <script src="./scripts/main.js"></script>
 </body>
 </html>

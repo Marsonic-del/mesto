@@ -5,6 +5,7 @@
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
     padding-top: 34px;
     box-sizing: border-box;
+    position: relative;
 }
 
 @media screen and (max-width: 620px) {

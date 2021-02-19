@@ -7,6 +7,7 @@
     margin: 0 10px 0 auto;
     transition: opacity linear 0.25s;
     cursor: pointer;
+    outline: none;
 }
 
 .element__button-like:hover {
