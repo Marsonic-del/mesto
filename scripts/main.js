@@ -1,22 +1,24 @@
-let addBtn = document.querySelector('.profile__add-button')
+const addBtn = document.querySelector('.profile__add-button')
 
 
-let popupContainer = document.querySelector('.popup-container');
-let popup = document.querySelector('.popup');
-let popup_E1 = document.querySelector('.popup_E1');
-let popup_E2 = document.querySelector('.popup_E2');
+const popupContainer = document.querySelector('.popup-container');
+const popup = document.querySelector('.popup');
+const popup_E1 = document.querySelector('.popup_E1');
+const popup_E2 = document.querySelector('.popup_E2');
 const imagePopup = document.querySelector('.popup_image')
 const popupPicture = document.querySelector('.popup__picture');
 
 
-let popupOpenButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = popup.querySelector('.popup__btn-close');
+const popupOpenButton = document.querySelector('.profile__edit-button');
+const popupCloseButton = popup.querySelector('.popup__btn-close');
 
-let heading = document.querySelector('.profile__heading');
-let headingDescription = document.querySelector('.profile__heading-description');
+const heading = document.querySelector('.profile__heading');
+const headingDescription = document.querySelector('.profile__heading-description');
 
-let formElement = popup_E1.querySelector('.popup__form');
-let formElementE2 = popup_E2.querySelector('.popup__form');
+const listContainerEl = document.querySelector('.elements-list');
+
+const formElement = popup_E1.querySelector('.popup__form');
+const formElementE2 = popup_E2.querySelector('.popup__form');
 
 
 
@@ -26,15 +28,17 @@ function openPopup(popupName) {
     popupName.classList.add('popup_opened');
 }
 
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
+}
+
 
 popupContainer.addEventListener('click', (evt) => {
   closePopup(evt.target);
 })
 
 
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
-}
+
 
 
 
@@ -103,7 +107,7 @@ const initialCards = [
 
     
 
-const listContainerEl = document.querySelector('.elements-list');
+
 
 
 // Функция загрузки карточек из массива
