@@ -37,21 +37,21 @@
         </footer>
     </div>
     <div class="popup-container">
-        <section class="popup popup_E1">          
+        <section class="popup popup-edit-profile">          
             <form class="popup__form" name="popup-form">
                 <button type="button" class="popup__btn-close" aria-label="Закрыть попап"></button>
                 <h3 class="popup__heading">Редактировать&nbsp;профиль</h3>
-                <input type="text" placeholder="Имя" class="popup__text popup__text_type_name" name="heading-name">
-                <input type="text" placeholder="О себе" class="popup__text popup__text_type_about" name="job">
+                <input type="text" placeholder="Имя" class="popup__text popup__text_type_name" name="heading-name"  required>
+                <input type="text" placeholder="О себе" class="popup__text popup__text_type_about" name="job"  required>
                 <button type="submit" class="popup__btn" aria-label="Сохранить">Сохранить</button>            
             </form>
         </section>
-        <section class="popup popup_E2">          
+        <section class="popup popup-add-card">          
             <form class="popup__form" name="popup-form">
                 <button type="button" class="popup__btn-close" aria-label="Закрыть попап"></button>
                 <h3 class="popup__heading">Новое место</h3>
-                <input type="text" placeholder="Название" class="popup__text popup__text_type_name" name="heading-name">
-                <input type="text" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link" name="link">
+                <input type="text" placeholder="Название" class="popup__text popup__text_type_name" name="heading-name"  required>
+                <input type="url" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link" name="link" required>
                 <button type="submit" class="popup__btn" aria-label="Создать">Создать</button>             
             </form>
         </section>
