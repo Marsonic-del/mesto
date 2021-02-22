@@ -63,17 +63,43 @@ function getItem(item) {
   const cloneElement = templateEl.content.cloneNode(true);
   const elementPicture = cloneElement.querySelector('.element__picture');
   const elementName = cloneElement.querySelector('.element__name');
+  const likeButton = cloneElement.querySelector('.element__button-like');
+  const deleteButton = cloneElement.querySelector('.element__trash');
   elementPicture.src = item.link;
   elementPicture.alt = item.name;
   elementName.textContent = item.name;
 
+
+  //Обработчик превью картинки 
+  elementPicture.addEventListener('click', () => {
+    handlePreviewPicture(item)
+  })
+
+  //Обработчик кнопки лайк
+  likeButton.addEventListener('click', () => {
+    handleLike(likeButton)
+  })
+
+  //Обработчик кнопки удаления картинки
+  deleteButton.addEventListener('click', () => {
+    handleDeleteCard(deleteButton)
+  })
+
   return cloneElement;
+}
+
+function handlePreviewPicture(data) {
+  const popupCaption = imagePopup.querySelector('.popup__caption');
+  popupCaption.textContent = data.name;
+  popupPicture.src = data.link;
+  
+  openPopup(imagePopup)
 }
 
 
 // Функция реагирования на нажатие кнопки "лайк" 
-function handleLike(evt) {
-  evt.target.classList.toggle('element__button-like_active');
+function handleLike(likeButton) {
+  likeButton.classList.toggle('element__button-like_active');
 }
 
 
@@ -87,18 +113,16 @@ function formSubmitHandlerPopup_E2(evt) {
   const returnCardObj = getItem(cardObject);
   listContainerEl.prepend(returnCardObj);
   closePopup(popupAddCard);
-  inputName.value = '';
-  inputLink.value = '';
+  //inputName.value = '';
+  //inputLink.value = '';
+  formAddCard.reset();
 }
 
 
 //Функция удаления карточки
-function handleDeleteCard(evt) {
-  
-    const delBtn = evt.target;
-    const elementListItem = delBtn.closest('.elements-list__item');
-    elementListItem.remove();
-  
+function handleDeleteCard(deleteButton) {
+    const card = deleteButton.closest('.elements-list__item');
+    card.remove();
 }
 
 
@@ -143,36 +167,12 @@ formEditProfile.addEventListener('submit', formSubmitHandler);
   });
 
 
-  // добавим всему списку карточек обработчик лайка отдельной карточки 
-
-listContainerEl.addEventListener('click', (evt) => {
-  if(evt.target.classList.contains('element__button-like')) {
-    handleLike(evt);
-  }
-})
-
-
-
-// добавим всему списку карточек обработчик удаления отдельной карточки 
+/*// добавим всему списку карточек обработчик удаления отдельной карточки 
 listContainerEl.addEventListener('click', (evt) => {
   if(evt.target.classList.contains('element__trash')) {
     handleDeleteCard(evt);
   }
-})
-
-
-// Слушатель для открытия третьего попапа (popup_image)
-
-listContainerEl.addEventListener('click', (evt) => {
-  if(evt.target.classList.contains('element__picture')) {    
-    popupPicture.src = evt.target.src;
-    const popupCaption = document.querySelector('.popup__caption');
-    const element = evt.target.closest('.element');
-    const elementName = element.querySelector('.element__name')
-    popupCaption.textContent = elementName.textContent;
-    openPopup(imagePopup)
-  } 
-})
+})*/
 
 
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
