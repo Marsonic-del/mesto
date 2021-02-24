@@ -1,1 +1,3 @@
-.elements-list__item {}
+.elements-list__item {
+    cursor: pointer;
+}

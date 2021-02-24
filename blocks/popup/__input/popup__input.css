@@ -1,4 +1,4 @@
-.popup__text {
+.popup__input {
     font-size: 14px;
     line-height: 1.22;
     font-weight: normal;
@@ -12,13 +12,13 @@
     box-sizing: border-box;
 }
 
-.popup__text:focus {
+.popup__input:focus {
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
 @media screen and (max-width: 620px) {
-    .popup__text{
+    .popup__input{
         width: 238px;
         margin-left: 22px;
     }
