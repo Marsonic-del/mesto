@@ -22,6 +22,7 @@ const templateEl = document.querySelector('.element-template');
 const closeButtonEditProfile = popupEditProfile.querySelector('.popup__button-close');
 const closeButtonAddCard = popupAddCard.querySelector('.popup__button-close');
 const closeButtonImage = imagePopup.querySelector('.popup__button-close');
+const popupCaption = imagePopup.querySelector('.popup__caption');
 
   //                                          ФУНКЦИИ 
 
@@ -32,24 +33,9 @@ function openPopup(popupName) {
     document.addEventListener('keydown', closePopupByEscape);
 }
 
-// Сброс данных полей и ошибок после закрытия попапа
-const resetPopupForm = (popupName) => {
-  const form = popupName.querySelector('.popup__form');
-  // Только для попапов с формами
-  // popup_image не имеет формы поэтому не обрабатывается здесь
-  if(form) {
-    form.reset();
-    const inputList = Array.from(form.querySelectorAll('.popup__input'));
-    inputList.forEach((inputElement) => {
-    hideInputError(form, inputElement, validationConfig.inputErrorClass, validationConfig.errorClass)
-    })
-  }
-};
-
 // Функция закрытия попапа
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
-  resetPopupForm(popupName);
   document.removeEventListener('keydown', closePopupByEscape);
 }
 
@@ -105,7 +91,6 @@ function getItem(item) {
 
 // Функция открытия popup_image 
 function handlePreviewPicture(data) {
-  const popupCaption = imagePopup.querySelector('.popup__caption');
   popupCaption.textContent = data.name;
   popupPicture.src = data.link;
   popupPicture.alt = data.name;
@@ -124,7 +109,7 @@ function submitAddCardForm(evt) {
   const returnCardObj = getItem(cardObject);
   listContainerEl.prepend(returnCardObj);
   closePopup(popupAddCard);
-  formAddCard.reset();
+  resetPopupForm(popupAddCard, validationConfig.formSelector, validationConfig.inputSelector);
   toggleButtonState(inputList, buttonElement, validationConfig.inactiveButtonClass);
 }
 
@@ -178,6 +163,7 @@ closeButtonEditProfile.addEventListener('click', () => {
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
 addBtn.addEventListener('click', () => {
   openPopup(popupAddCard);
+  resetPopupForm(popupAddCard, validationConfig.formSelector, validationConfig.inputSelector);
 } );
 
 // Добавляем карточку на страницу

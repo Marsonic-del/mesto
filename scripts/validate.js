@@ -68,6 +68,20 @@ const validationConfig = {
     errorClass: 'popup__error_visible'
 }
 
+// Сброс данных полей и ошибок после закрытия попапа
+const resetPopupForm = (popupName, formSelector, inputSelector) => {
+    const form = popupName.querySelector(formSelector);
+    // Только для попапов с формами
+    // popup_image не имеет формы поэтому не обрабатывается здесь
+    
+      form.reset();
+      const inputList = Array.from(form.querySelectorAll(inputSelector));
+      inputList.forEach((inputElement) => {
+      hideInputError(form, inputElement, validationConfig.inputErrorClass, validationConfig.errorClass)
+      })
+    
+  };
+
 // Функция исполняет весь процес валидации формы.
 const enableValidation = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
     const formList = Array.from(document.querySelectorAll(formSelector));
