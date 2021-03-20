@@ -25,3 +25,5 @@ const initialCards = [
       link: 'https://news.liga.net/images/general/2020/09/25/thumbnail-tw-20200925111737-3540.jpg?v=1601025554'
     }
   ];
+
+  export {initialCards}
