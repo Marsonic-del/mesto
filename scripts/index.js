@@ -1,6 +1,8 @@
-import {Card, openPopup, closePopup} from './Card.js';
+import {Card} from './Card.js';
 import {FormValidator, validationConfig} from './validate.js';
 import {initialCards} from './initial-сards.js';
+
+export {openPopup, imagePopup, listContainerEl};
 
 const addBtn = document.querySelector('.profile__add-button')
 const popup = document.querySelector('.popup');
@@ -22,6 +24,11 @@ const buttonElement = formAddCard.querySelector('.popup__button');
 const templateEl = document.querySelector('.element-template');
 const closeButtonEditProfile = popupEditProfile.querySelector('.popup__button-close');
 const closeButtonAddCard = popupAddCard.querySelector('.popup__button-close');
+const imagePopup = document.querySelector('.popup_image')
+const closeButtonImage = imagePopup.querySelector('.popup__button-close');
+const popupContainer = document.querySelectorAll('.popup');
+const popupCaption = imagePopup.querySelector('.popup__caption');
+const popupPicture = document.querySelector('.popup__picture');
 
 
   //                                          ФУНКЦИИ 
@@ -43,6 +50,53 @@ function submitAddCardForm(evt) {
   listContainerEl.prepend(returnCardObj);
   closePopup(popupAddCard);
 }
+
+// Функция открытия попапа
+function openPopup(popupName) {
+  popupName.classList.add('popup_opened');
+  //Закрываем попап клавишей escape
+  document.addEventListener('keydown', closePopupByEscape);
+}
+
+// Функция закрытия попапов клавишей Esc 
+const closePopupByEscape = function (evt) {
+  if(evt.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup);
+  }
+}
+
+  // Закрываем popup_image кнопкой закрытия
+  closeButtonImage.addEventListener('click', () => {
+    closePopup(imagePopup);
+  });
+
+  // Функция закрытия попапа
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEscape);
+}
+
+// Закрытие попапов ("оверлей")
+function closePopupOverlay () {
+  const popupContainerArray = Array.from(popupContainer);
+  popupContainerArray.forEach((popupElement) => {
+    popupElement.addEventListener('click', (evt) => {
+      if(evt.target === evt.currentTarget) {
+        closePopup(evt.target);
+      }
+    })
+  })
+};
+
+export function handlePreviewPicture(title, image) {
+  popupCaption.textContent = title;
+  popupPicture.src = image;
+  popupPicture.alt = title;
+  openPopup(imagePopup)
+} 
+
+closePopupOverlay();
 
 //                          Слушатели и обработчики событий
 
@@ -82,37 +136,9 @@ addBtn.addEventListener('click', () => {
 // Добавляем карточку на страницу
 formAddCard.addEventListener('submit', submitAddCardForm);
 
-// Создаем карточки при загрузке страницы
-initialCards.forEach((item) => {
+ // Создаем карточки при загрузке страницы
+ initialCards.forEach((item) => {
   const cardItem = new Card(item, ".element-template");
   const cardElement = cardItem.generateCard();
   listContainerEl.append(cardElement);
 })
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
