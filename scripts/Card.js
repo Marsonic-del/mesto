@@ -1,4 +1,3 @@
-
 import {handlePreviewPicture} from './index.js'
 
 export default class Card {

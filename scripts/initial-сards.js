@@ -1,5 +1,5 @@
 // Массив с карточками при загрузке страницы
-const initialCards = [
+export const initialCards = [
     {
       name: 'Львов',
       link: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/%D0%9B%D0%B2%D0%BE%D0%B2_%D0%93%D0%B0%D0%BB%D0%B8%D1%86%D0%B8%D1%98%D0%B0.jpg/300px-%D0%9B%D0%B2%D0%BE%D0%B2_%D0%93%D0%B0%D0%BB%D0%B8%D1%86%D0%B8%D1%98%D0%B0.jpg'
@@ -25,5 +25,3 @@ const initialCards = [
       link: 'https://news.liga.net/images/general/2020/09/25/thumbnail-tw-20200925111737-3540.jpg?v=1601025554'
     }
   ];
-
-  export {initialCards}

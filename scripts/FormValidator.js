@@ -1,16 +1,4 @@
-export {FormValidator, validationConfig}
-import {addBtn} from './index.js';
-
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-}
-
-class FormValidator {
+export default class FormValidator {
     constructor(config, form) {
         this._formSelector = config.formSelector;
         this._inputSelector = config.inputSelector;
@@ -67,11 +55,11 @@ class FormValidator {
 
     _toggleButtonState (inputList) {
         if (this._hasInvalidInput(inputList)) {
-            // сделай кнопку неактивной
+            // сделаем кнопку неактивной
             this._submitButton.classList.add(this._inactiveButtonClass);
             this._submitButton.disabled = true;     
           } else {
-            // иначе сделай кнопку активной
+            // иначе сделаем кнопку активной
             this._submitButton.classList.remove(this._inactiveButtonClass);
             this._submitButton.disabled = false;
           }
