@@ -1,9 +1,7 @@
 
 import {handlePreviewPicture} from './index.js'
-export {Card}
 
-console.log('card')
-class Card {
+export default class Card {
     constructor(data, cardSelector) {
       this._title = data.name;
       this._image = data.link;

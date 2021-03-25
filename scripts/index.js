@@ -1,15 +1,15 @@
-import {Card} from './Card.js';
-import {FormValidator, validationConfig} from './validate.js';
+import Card from './Card.js';
+import {FormValidator, validationConfig} from './FormValidator.js';
 import {initialCards} from './initial-сards.js';
 
-export {openPopup, imagePopup, listContainerEl};
+export {openPopup, imagePopup, listContainerEl, addBtn};
 
 const addBtn = document.querySelector('.profile__add-button')
 const popup = document.querySelector('.popup');
 const popupEditProfile = document.querySelector('.popup-edit-profile');
 const popupAddCard = document.querySelector('.popup-add-card');
 const popupOpenButton = document.querySelector('.profile__edit-button');
-const popupCloseButton = popup.querySelector('.popup__button-close');
+//const popupCloseButton = popup.querySelector('.popup__button-close');
 const heading = document.querySelector('.profile__heading');
 const headingDescription = document.querySelector('.profile__heading-description');
 const inputEditProfileName = popupEditProfile.querySelector('.popup__input_type_name');
@@ -19,9 +19,9 @@ const inputAddCardLink = popupAddCard.querySelector('.popup__input_type_link');
 const listContainerEl = document.querySelector('.elements-list');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
-const inputList = Array.from(formAddCard.querySelectorAll('.popup__input'));
-const buttonElement = formAddCard.querySelector('.popup__button');
-const templateEl = document.querySelector('.element-template');
+//const inputList = Array.from(formAddCard.querySelectorAll('.popup__input'));
+//const buttonElement = formAddCard.querySelector('.popup__button');
+//const templateEl = document.querySelector('.element-template');
 const closeButtonEditProfile = popupEditProfile.querySelector('.popup__button-close');
 const closeButtonAddCard = popupAddCard.querySelector('.popup__button-close');
 const imagePopup = document.querySelector('.popup_image')
@@ -29,6 +29,8 @@ const closeButtonImage = imagePopup.querySelector('.popup__button-close');
 const popupContainer = document.querySelectorAll('.popup');
 const popupCaption = imagePopup.querySelector('.popup__caption');
 const popupPicture = document.querySelector('.popup__picture');
+const formArray = document.querySelectorAll('.popup__form');
+
 
 
   //                                          ФУНКЦИИ 
@@ -45,9 +47,8 @@ function submitEditProfileForm(evt) {
 function submitAddCardForm(evt) {
   evt.preventDefault();
   const cardObject = {name: inputAddCardName.value, link: inputAddCardLink.value}
-  const card = new Card(cardObject, ".element-template")
-  const returnCardObj = card.generateCard();
-  listContainerEl.prepend(returnCardObj);
+  const card = createCard(cardObject, ".element-template")
+  listContainerEl.prepend(card);
   closePopup(popupAddCard);
 }
 
@@ -89,6 +90,11 @@ function closePopupOverlay () {
   })
 };
 
+function createCard(data, cardSelector) {
+  const card = new Card(data, cardSelector);
+  return card.generateCard();
+}
+
 export function handlePreviewPicture(title, image) {
   popupCaption.textContent = title;
   popupPicture.src = image;
@@ -103,9 +109,9 @@ closePopupOverlay();
 // Открываем попап редактирования (popupe-edit-profile)
   popupOpenButton.addEventListener('click', () => {
    openPopup(popupEditProfile);
-   const openedForm = document.querySelector('.popup_opened')
-   const formValidation = new FormValidator(validationConfig, openedForm)
-   formValidation.enableValidation ();
+   //const openedForm = document.querySelector('.popup_opened')
+   //const formValidation = new FormValidator(validationConfig, openedForm)
+   //formValidation.enableValidation ();
    inputEditProfileName.value = heading.textContent;
    inputEditProfileAbout.value = headingDescription.textContent;
    inputEditProfileName.dispatchEvent(new Event('input'));
@@ -128,9 +134,7 @@ closeButtonEditProfile.addEventListener('click', () => {
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
 addBtn.addEventListener('click', () => {
   openPopup(popupAddCard);
-  const openedForm = document.querySelector('.popup_opened')
-  const formValidation = new FormValidator(validationConfig, openedForm)
-  formValidation.enableValidation ();
+  cardFormValidator.resetForm();
 } );
 
 // Добавляем карточку на страницу
@@ -138,7 +142,11 @@ formAddCard.addEventListener('submit', submitAddCardForm);
 
  // Создаем карточки при загрузке страницы
  initialCards.forEach((item) => {
-  const cardItem = new Card(item, ".element-template");
-  const cardElement = cardItem.generateCard();
+  const cardElement = createCard(item, ".element-template")
   listContainerEl.append(cardElement);
 })
+
+const profileFormValidator = new FormValidator(validationConfig, formEditProfile);
+profileFormValidator.enableValidation();
+const cardFormValidator = new FormValidator(validationConfig, formAddCard);
+cardFormValidator.enableValidation();

@@ -1,3 +1,6 @@
+export {FormValidator, validationConfig}
+import {addBtn} from './index.js';
+
 const validationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -24,7 +27,7 @@ class FormValidator {
         this._element.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-        this._resetPopupForm (this._inputList)
+        this.resetForm (this._inputList)
         this._toggleButtonState(this._inputList);
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
@@ -65,26 +68,25 @@ class FormValidator {
     _toggleButtonState (inputList) {
         if (this._hasInvalidInput(inputList)) {
             // сделай кнопку неактивной
-            this._submitButton.classList.add(this._inactiveButtonClass);     
+            this._submitButton.classList.add(this._inactiveButtonClass);
+            this._submitButton.disabled = true;     
           } else {
             // иначе сделай кнопку активной
             this._submitButton.classList.remove(this._inactiveButtonClass);
+            this._submitButton.disabled = false;
           }
     };
 
-    _resetPopupForm (inputList) {
-      this._popupOpened = document.querySelector('.popup_opened');
-      this._openedForm = this._popupOpened.querySelector(this._formSelector);
-      this._openedForm.reset();
-      inputList.forEach((inputElement) => {
-        this._hideInputError(inputElement)
-      })
+    resetForm () {
+        this._element.reset();
+        this._inputList.forEach((inputElement) => {
+          this._hideInputError(inputElement);
+          this._toggleButtonState (this._inputList)
+      }) 
     };
 
     enableValidation () {this._setEventListeners ()};
 }
-
-export {FormValidator, validationConfig}
 
 
 
