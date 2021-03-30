@@ -1,6 +1,10 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import {initialCards} from './initial-сards.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js'
+import Popup from '../components/Popup.js'
+import {initialCards} from '../utils/constants.js'
+import PopupWithImage from '../components/PopupWithImage.js';
+export {popupCaption, popupPicture, imagePopupHandler}
 
 const addBtn = document.querySelector('.profile__add-button')
 const popup = document.querySelector('.popup');
@@ -31,6 +35,11 @@ const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
+const profileFormValidator = new FormValidator(validationConfig, formEditProfile);
+const cardFormValidator = new FormValidator(validationConfig, formAddCard);
+const popupAddCardHandler = new Popup(popupAddCard);
+const popupEditProfileHandler = new Popup(popupEditProfile) 
+const imagePopupHandler = new PopupWithImage(imagePopup)
 
   //                                          ФУНКЦИИ 
 
@@ -39,7 +48,7 @@ function submitEditProfileForm(evt) {
   evt.preventDefault();
   heading.textContent = inputEditProfileName.value;
   headingDescription.textContent = inputEditProfileAbout.value;
-  closePopup(popupEditProfile);
+  popupEditProfileHandler.closePopup();
 }
 
 // Функция добавления карточки из popupAddCard
@@ -48,34 +57,34 @@ function submitAddCardForm(evt) {
   const cardObject = {name: inputAddCardName.value, link: inputAddCardLink.value}
   const card = createCard(cardObject, ".element-template")
   listContainerEl.prepend(card);
-  closePopup(popupAddCard);
+  popupAddCardHandler.closePopup();
 }
 
 // Функция открытия попапа
-function openPopup(popupName) {
+/*function openPopup(popupName) {
   popupName.classList.add('popup_opened');
   //Закрываем попап клавишей escape
   document.addEventListener('keydown', closePopupByEscape);
-}
+}*/
 
 // Функция закрытия попапов клавишей Esc 
-const closePopupByEscape = function (evt) {
+/*const closePopupByEscape = function (evt) {
   if(evt.key === "Escape") {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup);
   }
-}
+}*/
 
-  // Закрываем popup_image кнопкой закрытия
+  /*// Закрываем popup_image кнопкой закрытия
   closeButtonImage.addEventListener('click', () => {
     closePopup(imagePopup);
-  });
+  });*/
 
   // Функция закрытия попапа
-function closePopup(popupName) {
+/*function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEscape);
-}
+}*/
 
 // Закрытие попапов ("оверлей")
 function closePopupOverlay () {
@@ -95,22 +104,24 @@ function createCard(data, cardSelector) {
   return card.generateCard();
 }
 
-// Функция заполнения данными попапа превью карточки
+/*// Функция заполнения данными попапа превью карточки
 export function handlePreviewPicture(title, image) {
   popupCaption.textContent = title;
   popupPicture.src = image;
   popupPicture.alt = title;
-  openPopup(imagePopup)
-} 
+  imagePopupHandler.openPopup();
+} */
 
 // Вызов функции закрытия попапов оверлей
 closePopupOverlay();
 
-//                          Слушатели и обработчики событий
+
+
+//                          Слушатели событий
 
 // Открываем попап редактирования (popupe-edit-profile)
   popupOpenButton.addEventListener('click', () => {
-   openPopup(popupEditProfile);
+   popupEditProfileHandler.openPopup();
    inputEditProfileName.value = heading.textContent;
    inputEditProfileAbout.value = headingDescription.textContent;
    inputEditProfileName.dispatchEvent(new Event('input'));
@@ -120,34 +131,41 @@ closePopupOverlay();
 // Сохраняем введенную информацию в попапе редактирования (popupe-edit-profile)
 formEditProfile.addEventListener('submit', submitEditProfileForm);
 
-// Закрываем попап редактирования (popupe-edit-profile) кнопкой закрытия
+/*// Закрываем попап редактирования (popupe-edit-profile) кнопкой закрытия
 closeButtonEditProfile.addEventListener('click', () => {
     closePopup(popupEditProfile);
-  });
+  });*/
 
-  // Закрываем попап добавления карточки (popupe-add-card) кнопкой закрытия
-  closeButtonAddCard.addEventListener('click', () => {
-    closePopup(popupAddCard);
-  });
+  
 
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
 addBtn.addEventListener('click', () => {
-  openPopup(popupAddCard);
-  // Сброс полей и отключение кнопки сабмита формы добавления карточки  
+  popupAddCardHandler.openPopup();
   cardFormValidator.resetForm();
 } );
+
+/*// Закрываем попап добавления карточки (popupe-add-card) кнопкой закрытия
+closeButtonAddCard.addEventListener('click', () => {
+  popupAddCardHandler.closePopup();
+});*/
 
 // Добавляем карточку на страницу
 formAddCard.addEventListener('submit', submitAddCardForm);
 
  // Создаем карточки при загрузке страницы
- initialCards.forEach((item) => {
+ /*initialCards.forEach((item) => {
   const cardElement = createCard(item, ".element-template")
   listContainerEl.append(cardElement);
-})
+})*/
+
+const cardList = new Section({items: initialCards, renderer: (item) => {
+  const card = new Card(item, ".element-template");
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement)
+}}, listContainerEl)
+
+cardList.renderItems();
 
 // Создаем обьекты класса FormValidator для формы редактирования и формы добавления карточки
-const profileFormValidator = new FormValidator(validationConfig, formEditProfile);
 profileFormValidator.enableValidation();
-const cardFormValidator = new FormValidator(validationConfig, formAddCard);
 cardFormValidator.enableValidation();

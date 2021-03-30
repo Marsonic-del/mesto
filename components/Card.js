@@ -1,4 +1,5 @@
-import {handlePreviewPicture} from './index.js'
+//import {handlePreviewPicture} from '../pages/index.js'
+import {imagePopupHandler} from '../pages/index.js'
 
 export default class Card {
     constructor(data, cardSelector) {
@@ -27,6 +28,7 @@ export default class Card {
       this._pictureElement.alt = this._title;
       this._element.querySelector('.element__name').textContent = this._title;
       this._setEventListeners();
+      
       return this._element;
     }
 
@@ -42,7 +44,7 @@ export default class Card {
     _setEventListeners() {
       //Обработчик превью картинки 
       this._pictureElement.addEventListener('click', () => {
-        handlePreviewPicture(this._title, this._image)
+        imagePopupHandler.openPopup(this._title, this._image)
     })
       //Обработчик кнопки лайк
       this._buttonLike.addEventListener('click', () => {
