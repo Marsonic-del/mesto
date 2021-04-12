@@ -1,6 +1,6 @@
 export default class FormValidator {
     constructor(config, form) {
-        this._formSelector = config.formSelector;
+        //this._formSelector = config.formSelector;
         this._inputSelector = config.inputSelector;
         this._submitButtonSelector = config.submitButtonSelector;
         this._inactiveButtonClass = config.inactiveButtonClass;
@@ -70,7 +70,7 @@ export default class FormValidator {
         this._inputList.forEach((inputElement) => {
           this._hideInputError(inputElement);
           this._toggleButtonState (this._inputList)
-      }) 
+      })
     };
 
     enableValidation () {this._setEventListeners ()};

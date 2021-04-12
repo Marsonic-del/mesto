@@ -1,11 +1,10 @@
-//import {handlePreviewPicture} from '../pages/index.js'
-import {imagePopupHandler} from '../pages/index.js'
-
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor({handleCardClick}, data, cardSelector) {
+      this._data = data;
       this._title = data.name;
       this._image = data.link;
       this._cardSelector = cardSelector;
+      this._handleCardClick = handleCardClick;
     }
     _getTemplate() {
       // забираем размеку из HTML и клонируем элемент
@@ -19,7 +18,7 @@ export default class Card {
     }
 
     // Публичный метод. Добавляет карточки на страницу
-    generateCard () {
+    generateCard() {
       this._element = this._getTemplate();
       this._pictureElement = this._element.querySelector('.element__picture')
       this._buttonLike = this._element.querySelector(".element__button-like");
@@ -44,8 +43,8 @@ export default class Card {
     _setEventListeners() {
       //Обработчик превью картинки 
       this._pictureElement.addEventListener('click', () => {
-        imagePopupHandler.openPopup(this._title, this._image)
-    })
+        this._handleCardClick()
+      })
       //Обработчик кнопки лайк
       this._buttonLike.addEventListener('click', () => {
         this._handleLike()

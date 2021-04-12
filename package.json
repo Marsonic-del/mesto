@@ -1,0 +1,40 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Проект \"Место\" это сервис с интерактивной страницей, куда можно добавлять фотографии, удалять их и ставить лайки. \r В проекте используются методы адаптивной верстки: относительные значения размеров елементов, функия calc (), медиа-запросы; \r Работа с полями форм; \r JavaScript; \r Благодаря использованию JavaScript мы сделали сайт более интерактивным. Сделан попап, поля которого можна \r изменять, редактировать и сохранять значения. Для этого используются такие инструменты JavaScript: \r 1. querySelector() для доступа к DOM-элементам;\r 2. addEventListener() для определения реакции на события;\r 3. Обьявления и вызов функций. \r Проект может быть полезным для начинающих в изучении HTML5, CSS3, JavaScript ES6. \r [Ссылка на сайт](https://marsonic-del.github.io/mesto/ \"mesto\").",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marsonic-del/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marsonic-del/mesto/issues"
+  },
+  "homepage": "https://github.com/Marsonic-del/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.1",
+    "cssnano": "^5.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.4.1",
+    "postcss-loader": "^5.2.0",
+    "webpack": "^5.31.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.10.1",
+    "rimraf": "^3.0.2"
+  }
+}
