@@ -5,6 +5,11 @@ export default class PopupWithImage extends Popup {
     constructor({popupSelector}) {
         super({popupSelector});
     }
+
+    setEventListeners() {
+        super._setEventListeners();
+    }
+
     openPopup(data) {
         super.openPopup()
         popupPicture.src = data.link;
