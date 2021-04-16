@@ -53,8 +53,9 @@ const popupAddCardForm = new PopupWithForm({
   handleFormSubmit: formValues => {
     api
       .addCard(formValues)
-      .then(message => {
-        const newCard = createCard(message, '.element-template');
+      .then(card => {
+        console.log(card.likes.length);
+        const newCard = createCard(card, '.element-template');
         cardAdding.addItemPrepend(newCard);
       })
       .catch(response => console.log(`Ошибка ${response.status}`));

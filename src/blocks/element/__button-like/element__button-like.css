@@ -1,15 +1,15 @@
 .element__button-like {
-    border: none;
-    min-width: 22px;
-    min-height: 19px;
-    background: url("../../../images/button-like.svg") center no-repeat;
-    background-size: 100%;
-    margin: 0 10px 0 auto;
-    transition: opacity linear 0.25s;
-    cursor: pointer;
-    outline: none;
+  border: none;
+  min-width: 22px;
+  min-height: 19px;
+  background: url('../../../images/button-like.svg') center no-repeat;
+  background-size: 100%;
+  margin: 0;
+  transition: opacity linear 0.25s;
+  cursor: pointer;
+  outline: none;
 }
 
 .element__button-like:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }

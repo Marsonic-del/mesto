@@ -1,82 +1,157 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-  <title>mesto</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mesto</title>
+  </head>
 
-<body class="body">
+  <body class="body">
     <div class="page">
-        <header class="header">
-            <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип mesto">
-        </header>
-        <main class="main">
-            <section class="profile">
-                <img class="profile__avatar" src="<%=require('./images/J.E.Cousteau.jpg')%>" alt="Жак-Ив Кусто">
-                <div class="profile__info">
-                    <div class="profile__wrapper">
-                        <h1 class="profile__heading">Жак-Ив Кусто</h1>
-                        <button class="profile__edit-button" type="button" aria-label="Кнопка редактирования"></button>
-                    </div>                   
-                    <p class="profile__heading-description">Исследователь океана</p>                    
-                </div>
-                <button class="profile__add-button" type="button" aria-label="Кнопка добавить"></button>             
-            </section>
+      <header class="header">
+        <img
+          class="header__logo"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип mesto"
+        />
+      </header>
+      <main class="main">
+        <section class="profile">
+          <img
+            class="profile__avatar"
+            src="<%=require('./images/J.E.Cousteau.jpg')%>"
+            alt="Жак-Ив Кусто"
+          />
+          <div class="profile__info">
+            <div class="profile__wrapper">
+              <h1 class="profile__heading">Жак-Ив Кусто</h1>
+              <button
+                class="profile__edit-button"
+                type="button"
+                aria-label="Кнопка редактирования"
+              ></button>
+            </div>
+            <p class="profile__heading-description">Исследователь океана</p>
+          </div>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Кнопка добавить"
+          ></button>
+        </section>
 
-            <section class="elements">
-                <ul class="elements-list">
-                   
-                </ul>
-            </section>
-        </main>
-        
-        <footer class="footer">
-            <p class="footer__text">&copy; 2021 Mesto</p>
-        </footer>
+        <section class="elements">
+          <ul class="elements-list"></ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__text">&copy; 2021 Mesto</p>
+      </footer>
     </div>
     <div class="popup-container">
-        <section class="popup popup-edit-profile">          
-            <form class="popup__form" name="popup-form" novalidate>
-                <button type="button" class="popup__button-close" aria-label="Закрыть попап"></button>
-                <h3 class="popup__heading">Редактировать&nbsp;профиль</h3>
-                <input id="name-input" type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name"  required minlength="2" maxlength="40">
-                <span class="popup__error name-input-error"></span> 
-                <input id="about-input" type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about"  required minlength="2" maxlength="200">
-                <span class="popup__error about-input-error"></span>
-                <button type="submit" class="popup__button" aria-label="Сохранить">Сохранить</button>            
-            </form>
-        </section>
-        <section class="popup popup-add-card">          
-            <form class="popup__form" name="popup-form" novalidate>
-                <button type="button" class="popup__button-close" aria-label="Закрыть попап"></button>
-                <h3 class="popup__heading">Новое место</h3>
-                <input id="place-input" type="text" placeholder="Название" class="popup__input popup__input_type_name" name="name"  required minlength="2" maxlength="30">
-                <span class="popup__error place-input-error" ></span>
-                <input id="url-input" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" name="link" required>
-                <span class="popup__error url-input-error"></span>
-                <button type="submit" class="popup__button" aria-label="Создать">Создать</button>             
-            </form>
-        </section>
-        <section class="popup popup_image">
-            <div class="popup__container">
-                <img class="popup__picture" alt="#" src="#">
-                <p class="popup__caption"></p>
-                <button type="button" class="popup__button-close" aria-label="Закрыть попап"></button>
-            </div>
-        </section>
+      <section class="popup popup-edit-profile">
+        <form class="popup__form" name="popup-form" novalidate>
+          <button
+            type="button"
+            class="popup__button-close"
+            aria-label="Закрыть попап"
+          ></button>
+          <h3 class="popup__heading">Редактировать&nbsp;профиль</h3>
+          <input
+            id="name-input"
+            type="text"
+            placeholder="Имя"
+            class="popup__input popup__input_type_name"
+            name="name"
+            required
+            minlength="2"
+            maxlength="40"
+          />
+          <span class="popup__error name-input-error"></span>
+          <input
+            id="about-input"
+            type="text"
+            placeholder="О себе"
+            class="popup__input popup__input_type_about"
+            name="about"
+            required
+            minlength="2"
+            maxlength="200"
+          />
+          <span class="popup__error about-input-error"></span>
+          <button type="submit" class="popup__button" aria-label="Сохранить">
+            Сохранить
+          </button>
+        </form>
+      </section>
+      <section class="popup popup-add-card">
+        <form class="popup__form" name="popup-form" novalidate>
+          <button
+            type="button"
+            class="popup__button-close"
+            aria-label="Закрыть попап"
+          ></button>
+          <h3 class="popup__heading">Новое место</h3>
+          <input
+            id="place-input"
+            type="text"
+            placeholder="Название"
+            class="popup__input popup__input_type_name"
+            name="name"
+            required
+            minlength="2"
+            maxlength="30"
+          />
+          <span class="popup__error place-input-error"></span>
+          <input
+            id="url-input"
+            type="url"
+            placeholder="Ссылка на картинку"
+            class="popup__input popup__input_type_link"
+            name="link"
+            required
+          />
+          <span class="popup__error url-input-error"></span>
+          <button type="submit" class="popup__button" aria-label="Создать">
+            Создать
+          </button>
+        </form>
+      </section>
+      <section class="popup popup_image">
+        <div class="popup__container">
+          <img class="popup__picture" alt="#" src="#" />
+          <p class="popup__caption"></p>
+          <button
+            type="button"
+            class="popup__button-close"
+            aria-label="Закрыть попап"
+          ></button>
+        </div>
+      </section>
     </div>
     <template class="element-template">
-        <li class="elements-list__item">           
-            <article class="element">
-                <img class="element__trash" alt="Корзина" src="<%=require('./images/Trash.svg')%>">
-                <img class="element__picture" alt="#" src="#">
-                <div class="element__description">
-                    <h2 class="element__name"></h2>
-                    <button class="element__button-like" type="button" aria-label="Кнопка нравится"></button>
-                </div>
-            </article>
-        </li>
+      <li class="elements-list__item">
+        <article class="element">
+          <img
+            class="element__trash"
+            alt="Корзина"
+            src="<%=require('./images/Trash.svg')%>"
+          />
+          <img class="element__picture" alt="#" src="#" />
+          <div class="element__description">
+            <h2 class="element__name"></h2>
+            <div class="element__likes">
+              <button
+                class="element__button-like"
+                type="button"
+                aria-label="Кнопка нравится"
+              ></button>
+              <p class="element__likes-number"></p>
+            </div>
+          </div>
+        </article>
+      </li>
     </template>
-</body>
+  </body>
 </html>
