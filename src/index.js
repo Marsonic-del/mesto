@@ -1,6 +1,7 @@
 import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
+import Api from './components/Api.js';
 import {
   initialCards,
   validationConfig,
@@ -27,16 +28,22 @@ const profileFormValidator = new FormValidator(
 const userInfo = new UserInfo({
   userNameSelector: '.profile__heading',
   userInfoSelector: '.profile__heading-description',
+  avatarSelector: '.profile__avatar',
 });
 const imagePopupHandler = new PopupWithImage({ popupSelector: '.popup_image' });
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: '.popup-edit-profile',
   handleFormSubmit: formValues => {
-    userInfo.setUserInfo(formValues);
-    popupEditProfileForm.closePopup();
+    //Редактируем информацию о пользователе если сервер удовлетворит запрос с методом PATCH
+    api
+      .editProfile(formValues)
+      .then(result => {
+        userInfo.setUserInfo(result);
+        popupEditProfileForm.closePopup();
+      })
+      .catch(err => console.log(err));
   },
 });
-
 const popupAddCardForm = new PopupWithForm({
   popupSelector: '.popup-add-card',
   handleFormSubmit: formValues => {
@@ -44,6 +51,41 @@ const popupAddCardForm = new PopupWithForm({
     cardList.addItemPrepend(newCard);
   },
 });
+//Обьект класса Api для получения данных от сервера
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co/v1/cohort-22',
+  token: '06d63aad-75bc-4641-be17-ed6babb8063a',
+});
+// Создаем карточки при загрузке страницы методом getInitialCards()
+api
+  .getInitialCards()
+  .then(cards => {
+    const cardList = new Section(
+      {
+        items: cards,
+        renderer: card => {
+          const elementCard = createCard(card, '.element-template');
+          cardList.addItem(elementCard);
+        },
+      },
+      listContainerEl
+    );
+    cardList.renderItems();
+  })
+  .catch(response => {
+    console.log(`Ошибка ${response.status}`);
+  });
+
+//Методом getUserInfo() класса Api получаем данные пользователя от сервера
+api
+  .getUserInfo()
+  // Теперь полученные данные вставляем на страницу методом setUserInfo() класса UserInfo при загрузке
+  .then(message => {
+    userInfo.setUserInfo(message);
+  })
+  .catch(err => {
+    console.log('Ошибка');
+  });
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 imagePopupHandler.setEventListeners();
@@ -81,7 +123,7 @@ addBtn.addEventListener('click', () => {
 });
 
 // Создаем карточки при загрузке страницы
-const cardList = new Section(
+/*const cardList = new Section(
   {
     items: initialCards,
     renderer: item => {
@@ -93,7 +135,7 @@ const cardList = new Section(
   listContainerEl
 );
 
-cardList.renderItems();
+cardList.renderItems();*/
 
 // Создаем обьекты класса FormValidator для формы редактирования и формы добавления карточки
 profileFormValidator.enableValidation();
