@@ -44,18 +44,29 @@ const popupEditProfileForm = new PopupWithForm({
       .catch(err => console.log(err));
   },
 });
+//Используем этот обьект класса Section для  доступа к его методу addItemPrepend()
+const cardAdding = new Section({}, listContainerEl);
+
+//Используем этот обьект для добавления карточек на страницу через попап '.popup-add-card'
 const popupAddCardForm = new PopupWithForm({
   popupSelector: '.popup-add-card',
   handleFormSubmit: formValues => {
-    const newCard = createCard(formValues, '.element-template');
-    cardList.addItemPrepend(newCard);
+    api
+      .addCard(formValues)
+      .then(message => {
+        const newCard = createCard(message, '.element-template');
+        cardAdding.addItemPrepend(newCard);
+      })
+      .catch(response => console.log(`Ошибка ${response.status}`));
   },
 });
+
 //Обьект класса Api для получения данных от сервера
 const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-22',
   token: '06d63aad-75bc-4641-be17-ed6babb8063a',
 });
+
 // Создаем карточки при загрузке страницы методом getInitialCards()
 api
   .getInitialCards()
@@ -86,6 +97,7 @@ api
   .catch(err => {
     console.log('Ошибка');
   });
+
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 imagePopupHandler.setEventListeners();
