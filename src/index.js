@@ -86,6 +86,7 @@ let userId;
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userId = userData._id;
+    console.log(cards);
     // Теперь полученные данные вставляем на страницу методом setUserInfo() класса UserInfo при загрузке
     userInfo.setUserInfo(userData);
     const cardList = new Section(
@@ -109,18 +110,25 @@ popupRemoveCard.setEventListeners();
 
 //                                          ФУНКЦИИ
 // Функция создания карточки
-function createCard(data, idUser, cardSelector) {
+function createCard(cardElement, idUser, cardSelector) {
   const card = new Card(
     {
       handleCardClick: () => {
-        imagePopupHandler.openPopup(data);
+        imagePopupHandler.openPopup(cardElement);
       },
       //Аргументы: id карточки и сама карточка для удаления
       handleTrashClick: (idCard, cardRemove) =>
         popupRemoveCard.openPopup(idCard, cardRemove),
+
+      handleLikeClick: (idCard) => {
+        api
+          .addLike(idCard)
+          .then(card._handleLike())
+          .catch((err) => console.log(err));
+      },
     },
     idUser,
-    data,
+    cardElement,
     cardSelector
   );
   return card.generateCard();

@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { handleCardClick, handleTrashClick },
+    { handleCardClick, handleTrashClick, handleLikeClick },
     idUser,
     data,
     cardSelector
@@ -14,6 +14,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleTrashClick = handleTrashClick;
+    this._handleLikeClick = handleLikeClick;
   }
   _getTemplate() {
     // забираем размеку из HTML и клонируем элемент
@@ -36,6 +37,14 @@ export default class Card {
     if (this._idUser !== this._data.owner._id) {
       this._deleteButton.style.display = "none";
     }
+    //Если мы лайкнули карточку раньше, то загружать ее
+    //с активным статусом кнопки лайк (тёмный цвет)
+
+    this._data.likes.forEach((obj) => {
+      if (obj._id === this._idUser) {
+        return this._handleLike();
+      }
+    });
 
     this._pictureElement.src = this._image;
     this._pictureElement.alt = this._title;
@@ -47,7 +56,7 @@ export default class Card {
 
   // Управление кнопкой Like
   _handleLike() {
-    this._buttonLike.classList.toggle("element__button-like_active");
+    this._buttonLike.classList.add("element__button-like_active");
   }
   //Метод удаления карточки
   /*handleDeleteCard() {
@@ -61,7 +70,7 @@ export default class Card {
     });
     //Обработчик кнопки лайк
     this._buttonLike.addEventListener("click", () => {
-      this._handleLike();
+      this._handleLikeClick(this._idCard);
     });
 
     //Обработчик кнопки удаления картинки
