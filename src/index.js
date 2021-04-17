@@ -1,7 +1,8 @@
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import Section from './components/Section.js';
-import Api from './components/Api.js';
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
+import Section from "./components/Section.js";
+import Api from "./components/Api.js";
+//import PopupRemove from "./components/PopupRemove.js";
 import {
   initialCards,
   validationConfig,
@@ -9,16 +10,18 @@ import {
   formEditProfile,
   listContainerEl,
   popupOpenButton,
+  //popupRemoveCard,
   addBtn,
   inputEditProfileName,
   inputEditProfileAbout,
   heading,
   headingDescription,
-} from './utils/constants.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import './pages/index.css';
+} from "./utils/constants.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import UserInfo from "./components/UserInfo.js";
+import "./pages/index.css";
+//import PopupRemove from "./components/PopupRemove.js";
 
 const cardFormValidator = new FormValidator(validationConfig, formAddCard);
 const profileFormValidator = new FormValidator(
@@ -26,22 +29,22 @@ const profileFormValidator = new FormValidator(
   formEditProfile
 );
 const userInfo = new UserInfo({
-  userNameSelector: '.profile__heading',
-  userInfoSelector: '.profile__heading-description',
-  avatarSelector: '.profile__avatar',
+  userNameSelector: ".profile__heading",
+  userInfoSelector: ".profile__heading-description",
+  avatarSelector: ".profile__avatar",
 });
-const imagePopupHandler = new PopupWithImage({ popupSelector: '.popup_image' });
+const imagePopupHandler = new PopupWithImage({ popupSelector: ".popup_image" });
 const popupEditProfileForm = new PopupWithForm({
-  popupSelector: '.popup-edit-profile',
-  handleFormSubmit: formValues => {
+  popupSelector: ".popup-edit-profile",
+  handleFormSubmit: (formValues) => {
     //Редактируем информацию о пользователе если сервер удовлетворит запрос с методом PATCH
     api
       .editProfile(formValues)
-      .then(result => {
+      .then((result) => {
         userInfo.setUserInfo(result);
         popupEditProfileForm.closePopup();
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   },
 });
 //Используем этот обьект класса Section для  доступа к его методу addItemPrepend()
@@ -49,34 +52,48 @@ const cardAdding = new Section({}, listContainerEl);
 
 //Используем этот обьект для добавления карточек на страницу через попап '.popup-add-card'
 const popupAddCardForm = new PopupWithForm({
-  popupSelector: '.popup-add-card',
-  handleFormSubmit: formValues => {
+  popupSelector: ".popup-add-card",
+  handleFormSubmit: (formValues) => {
     api
       .addCard(formValues)
-      .then(card => {
-        console.log(card.likes.length);
-        const newCard = createCard(card, '.element-template');
+      .then((card) => {
+        const newCard = createCard(card, userId, ".element-template");
         cardAdding.addItemPrepend(newCard);
       })
-      .catch(response => console.log(`Ошибка ${response.status}`));
+      .catch((response) => console.log(`Ошибка ${response.status}`));
   },
 });
 
+//Используем этот обьект для удаления карточек  через попап '.popup-remove'
+/*const popupRemoveCard = new PopupRemove({
+  popupSelector: ".popup_remove",
+  handleFormSubmit: () => {
+    api
+      .removeCard(kkk)
+      .then()
+      .catch((response) => console.log(`Ошибка ${response.status}`));
+  },
+});*/
+
 //Обьект класса Api для получения данных от сервера
 const api = new Api({
-  address: 'https://mesto.nomoreparties.co/v1/cohort-22',
-  token: '06d63aad-75bc-4641-be17-ed6babb8063a',
+  address: "https://mesto.nomoreparties.co/v1/cohort-22",
+  token: "06d63aad-75bc-4641-be17-ed6babb8063a",
 });
 
+let userId;
+//Методом getUserInfo() класса Api получаем данные пользователя от сервера
 // Создаем карточки при загрузке страницы методом getInitialCards()
-api
-  .getInitialCards()
-  .then(cards => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    // Теперь полученные данные вставляем на страницу методом setUserInfo() класса UserInfo при загрузке
+    userInfo.setUserInfo(userData);
     const cardList = new Section(
       {
         items: cards,
-        renderer: card => {
-          const elementCard = createCard(card, '.element-template');
+        renderer: (card) => {
+          const elementCard = createCard(card, userId, ".element-template");
           cardList.addItem(elementCard);
         },
       },
@@ -84,34 +101,24 @@ api
     );
     cardList.renderItems();
   })
-  .catch(response => {
-    console.log(`Ошибка ${response.status}`);
-  });
-
-//Методом getUserInfo() класса Api получаем данные пользователя от сервера
-api
-  .getUserInfo()
-  // Теперь полученные данные вставляем на страницу методом setUserInfo() класса UserInfo при загрузке
-  .then(message => {
-    userInfo.setUserInfo(message);
-  })
-  .catch(err => {
-    console.log('Ошибка');
-  });
+  .catch((err) => console.log(err));
 
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 imagePopupHandler.setEventListeners();
+//popupRemoveCard.setEventListeners();
 
 //                                          ФУНКЦИИ
 // Функция создания карточки
-function createCard(data, cardSelector) {
+function createCard(data, idUser, cardSelector) {
   const card = new Card(
     {
       handleCardClick: () => {
         imagePopupHandler.openPopup(data);
       },
+      //handleTrashClick: () => popupRemoveCard.openPopup(),
     },
+    idUser,
     data,
     cardSelector
   );
@@ -121,16 +128,16 @@ function createCard(data, cardSelector) {
 //                          Слушатели событий
 
 // Открываем попап редактирования (popupe-edit-profile)
-popupOpenButton.addEventListener('click', () => {
+popupOpenButton.addEventListener("click", () => {
   popupEditProfileForm.openPopup();
   inputEditProfileName.value = heading.textContent;
   inputEditProfileAbout.value = headingDescription.textContent;
-  inputEditProfileName.dispatchEvent(new Event('input'));
-  inputEditProfileAbout.dispatchEvent(new Event('input'));
+  inputEditProfileName.dispatchEvent(new Event("input"));
+  inputEditProfileAbout.dispatchEvent(new Event("input"));
 });
 
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
-addBtn.addEventListener('click', () => {
+addBtn.addEventListener("click", () => {
   cardFormValidator.resetForm();
   popupAddCardForm.openPopup();
 });

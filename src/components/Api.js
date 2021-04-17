@@ -1,7 +1,3 @@
-import {
-  inputEditProfileName,
-  inputEditProfileAbout,
-} from '../utils/constants.js';
 export default class Api {
   constructor({ address, token }) {
     this._address = address;
@@ -13,7 +9,7 @@ export default class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(response => {
+    }).then((response) => {
       if (response.ok) {
         return response.json();
       }
@@ -26,7 +22,7 @@ export default class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(response => {
+    }).then((response) => {
       if (response.ok) {
         return response.json();
       }
@@ -36,16 +32,16 @@ export default class Api {
 
   editProfile(data) {
     return fetch(`${this._address}/users/me`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
         authorization: this._token,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: data.name,
         about: data.about,
       }),
-    }).then(response => {
+    }).then((response) => {
       if (response.ok) {
         return response.json();
       }
@@ -55,16 +51,35 @@ export default class Api {
 
   addCard(data) {
     return fetch(`${this._address}/cards`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         authorization: this._token,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-    }).then(response => {
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка ${response.status}`);
+    });
+  }
+
+  removeCard(data) {
+    return fetch(`${this._address}/cards/${data._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      /*body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),*/
+    }).then((response) => {
       if (response.ok) {
         return response.json();
       }
