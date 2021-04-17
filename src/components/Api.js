@@ -68,8 +68,8 @@ export default class Api {
     });
   }
 
-  removeCard(data) {
-    return fetch(`${this._address}/cards/${data._id}`, {
+  removeCard(idCard) {
+    return fetch(`${this._address}/cards/${idCard}`, {
       method: "DELETE",
       headers: {
         authorization: this._token,

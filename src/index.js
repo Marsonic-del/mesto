@@ -2,7 +2,7 @@ import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import Section from "./components/Section.js";
 import Api from "./components/Api.js";
-//import PopupRemove from "./components/PopupRemove.js";
+import PopupRemove from "./components/PopupRemove.js";
 import {
   initialCards,
   validationConfig,
@@ -10,7 +10,6 @@ import {
   formEditProfile,
   listContainerEl,
   popupOpenButton,
-  //popupRemoveCard,
   addBtn,
   inputEditProfileName,
   inputEditProfileAbout,
@@ -21,7 +20,6 @@ import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import UserInfo from "./components/UserInfo.js";
 import "./pages/index.css";
-//import PopupRemove from "./components/PopupRemove.js";
 
 const cardFormValidator = new FormValidator(validationConfig, formAddCard);
 const profileFormValidator = new FormValidator(
@@ -64,16 +62,17 @@ const popupAddCardForm = new PopupWithForm({
   },
 });
 
-//Используем этот обьект для удаления карточек  через попап '.popup-remove'
-/*const popupRemoveCard = new PopupRemove({
+//Используем этот обьект для удаления карточек  через попап '.popup_remove'
+const popupRemoveCard = new PopupRemove({
   popupSelector: ".popup_remove",
-  handleFormSubmit: () => {
+  //Аргументы: id карточки и сама карточка для удаления
+  handleFormSubmit: (idCard, cardRemove) => {
     api
-      .removeCard(kkk)
-      .then()
+      .removeCard(idCard)
+      .then(cardRemove.remove())
       .catch((response) => console.log(`Ошибка ${response.status}`));
   },
-});*/
+});
 
 //Обьект класса Api для получения данных от сервера
 const api = new Api({
@@ -106,7 +105,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 imagePopupHandler.setEventListeners();
-//popupRemoveCard.setEventListeners();
+popupRemoveCard.setEventListeners();
 
 //                                          ФУНКЦИИ
 // Функция создания карточки
@@ -116,7 +115,9 @@ function createCard(data, idUser, cardSelector) {
       handleCardClick: () => {
         imagePopupHandler.openPopup(data);
       },
-      //handleTrashClick: () => popupRemoveCard.openPopup(),
+      //Аргументы: id карточки и сама карточка для удаления
+      handleTrashClick: (idCard, cardRemove) =>
+        popupRemoveCard.openPopup(idCard, cardRemove),
     },
     idUser,
     data,
@@ -141,21 +142,6 @@ addBtn.addEventListener("click", () => {
   cardFormValidator.resetForm();
   popupAddCardForm.openPopup();
 });
-
-// Создаем карточки при загрузке страницы
-/*const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: item => {
-      const elementCard = createCard(item, '.element-template');
-
-      cardList.addItem(elementCard);
-    },
-  },
-  listContainerEl
-);
-
-cardList.renderItems();*/
 
 // Создаем обьекты класса FormValidator для формы редактирования и формы добавления карточки
 profileFormValidator.enableValidation();

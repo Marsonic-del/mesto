@@ -50,10 +50,10 @@ export default class Card {
     this._buttonLike.classList.toggle("element__button-like_active");
   }
   //Метод удаления карточки
-  handleDeleteCard() {
+  /*handleDeleteCard() {
     const card = this._deleteButton.closest(".elements-list__item");
     card.remove();
-  }
+  }*/
   _setEventListeners() {
     //Обработчик превью картинки
     this._pictureElement.addEventListener("click", () => {
@@ -63,9 +63,13 @@ export default class Card {
     this._buttonLike.addEventListener("click", () => {
       this._handleLike();
     });
+
     //Обработчик кнопки удаления картинки
     this._deleteButton.addEventListener("click", () => {
-      this._handleTrashClick();
+      //В переменной this._card елемент который будем удалять
+      this._card = this._deleteButton.closest(".elements-list__item");
+      //Колбэк с аргументами
+      this._handleTrashClick(this._idCard, this._card);
     });
   }
 }
