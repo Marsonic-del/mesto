@@ -86,7 +86,6 @@ let userId;
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userId = userData._id;
-    console.log(cards);
     // Теперь полученные данные вставляем на страницу методом setUserInfo() класса UserInfo при загрузке
     userInfo.setUserInfo(userData);
     const cardList = new Section(
@@ -121,10 +120,27 @@ function createCard(cardElement, idUser, cardSelector) {
         popupRemoveCard.openPopup(idCard, cardRemove),
 
       handleLikeClick: (idCard) => {
-        api
-          .addLike(idCard)
-          .then(card._handleLike())
-          .catch((err) => console.log(err));
+        if (!card.liked) {
+          //Добавляем лайк
+          api
+            .addLike(idCard)
+            .then((res) => {
+              card.handleLike();
+              card.likesNumber.textContent = res.likes.length;
+              card.liked = true;
+            })
+            .catch((err) => console.log(err));
+        } else {
+          //Удаляем лайк
+          api
+            .deleteLike(idCard)
+            .then((res) => {
+              card.handleLike();
+              card.likesNumber.textContent = res.likes.length;
+              card.liked = false;
+            })
+            .catch((err) => console.log(err));
+        }
       },
     },
     idUser,

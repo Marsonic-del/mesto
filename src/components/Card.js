@@ -10,7 +10,8 @@ export default class Card {
     this._idCard = data._id;
     this._title = data.name;
     this._image = data.link;
-    this._likes = data.likes.length;
+    this.likes = data.likes.length;
+    this.liked = false;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleTrashClick = handleTrashClick;
@@ -31,7 +32,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._pictureElement = this._element.querySelector(".element__picture");
     this._buttonLike = this._element.querySelector(".element__button-like");
-    this._likesNumber = this._element.querySelector(".element__likes-number");
+    this.likesNumber = this._element.querySelector(".element__likes-number");
     this._deleteButton = this._element.querySelector(".element__trash");
 
     if (this._idUser !== this._data.owner._id) {
@@ -39,24 +40,24 @@ export default class Card {
     }
     //Если мы лайкнули карточку раньше, то загружать ее
     //с активным статусом кнопки лайк (тёмный цвет)
-
     this._data.likes.forEach((obj) => {
       if (obj._id === this._idUser) {
-        return this._handleLike();
+        this.liked = true;
+        return this.handleLike();
       }
     });
 
     this._pictureElement.src = this._image;
     this._pictureElement.alt = this._title;
-    this._likesNumber.textContent = String(this._likes);
+    this.likesNumber.textContent = this.likes;
     this._element.querySelector(".element__name").textContent = this._title;
     this._setEventListeners();
     return this._element;
   }
 
   // Управление кнопкой Like
-  _handleLike() {
-    this._buttonLike.classList.add("element__button-like_active");
+  handleLike() {
+    this._buttonLike.classList.toggle("element__button-like_active");
   }
   //Метод удаления карточки
   /*handleDeleteCard() {

@@ -105,4 +105,23 @@ export default class Api {
       return Promise.reject(`Ошибка ${response.status}`);
     });
   }
+
+  deleteLike(idCard) {
+    return fetch(`${this._address}/cards/likes/${idCard}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      /*body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),*/
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка ${response.status}`);
+    });
+  }
 }
