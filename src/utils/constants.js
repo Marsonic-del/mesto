@@ -1,9 +1,10 @@
 export const addBtn = document.querySelector(".profile__add-button");
+export const avatar = document.querySelector(".profile__avatar");
 export const popup = document.querySelector(".popup");
 export const popupEditProfile = document.querySelector(".popup-edit-profile");
 export const popupAddCard = document.querySelector(".popup-add-card");
 export const popupOpenButton = document.querySelector(".profile__edit-button");
-//export const popupRemoveCard = document.querySelector('.popup_remove');
+export const popupAvatar = document.querySelector(".popup-avatar");
 export const heading = document.querySelector(".profile__heading");
 export const headingDescription = document.querySelector(
   ".profile__heading-description"
@@ -23,6 +24,7 @@ export const inputAddCardLink = popupAddCard.querySelector(
 export const listContainerEl = document.querySelector(".elements-list");
 export const formEditProfile = popupEditProfile.querySelector(".popup__form");
 export const formAddCard = popupAddCard.querySelector(".popup__form");
+export const formAvatar = popupAvatar.querySelector(".popup__form");
 export const closeButtonEditProfile = popupEditProfile.querySelector(
   ".popup__button-close"
 );

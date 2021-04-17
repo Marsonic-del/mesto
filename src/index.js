@@ -8,6 +8,7 @@ import {
   validationConfig,
   formAddCard,
   formEditProfile,
+  formAvatar,
   listContainerEl,
   popupOpenButton,
   addBtn,
@@ -15,6 +16,7 @@ import {
   inputEditProfileAbout,
   heading,
   headingDescription,
+  avatar,
 } from "./utils/constants.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -26,6 +28,7 @@ const profileFormValidator = new FormValidator(
   validationConfig,
   formEditProfile
 );
+const avatarFormValidator = new FormValidator(validationConfig, formAvatar);
 const userInfo = new UserInfo({
   userNameSelector: ".profile__heading",
   userInfoSelector: ".profile__heading-description",
@@ -42,6 +45,15 @@ const popupEditProfileForm = new PopupWithForm({
         userInfo.setUserInfo(result);
         popupEditProfileForm.closePopup();
       })
+      .catch((err) => console.log(err));
+  },
+});
+const popupAvatarForm = new PopupWithForm({
+  popupSelector: ".popup-avatar",
+  handleFormSubmit: (formValues) => {
+    api
+      .editAvatar(formValues.link)
+      .then((res) => (avatar.src = res.avatar))
       .catch((err) => console.log(err));
   },
 });
@@ -106,6 +118,7 @@ popupAddCardForm.setEventListeners();
 popupEditProfileForm.setEventListeners();
 imagePopupHandler.setEventListeners();
 popupRemoveCard.setEventListeners();
+popupAvatarForm.setEventListeners();
 
 //                                          ФУНКЦИИ
 // Функция создания карточки
@@ -166,7 +179,12 @@ addBtn.addEventListener("click", () => {
   cardFormValidator.resetForm();
   popupAddCardForm.openPopup();
 });
+avatar.addEventListener("click", () => {
+  avatarFormValidator.resetForm();
+  popupAvatarForm.openPopup();
+});
 
 // Создаем обьекты класса FormValidator для формы редактирования и формы добавления карточки
 profileFormValidator.enableValidation();
 cardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
