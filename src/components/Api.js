@@ -75,10 +75,6 @@ export default class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-      /*body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      }),*/
     }).then((response) => {
       if (response.ok) {
         return response.json();
@@ -94,10 +90,6 @@ export default class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-      /*body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      }),*/
     }).then((response) => {
       if (response.ok) {
         return response.json();
@@ -113,10 +105,6 @@ export default class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-      /*body: JSON.stringify({
-        name: data.name,
-        link: data.link,
-      }),*/
     }).then((response) => {
       if (response.ok) {
         return response.json();

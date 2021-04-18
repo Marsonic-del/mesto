@@ -5,6 +5,7 @@ export default class PopupRemove extends Popup {
     super({ popupSelector });
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupSelector.querySelector(".popup__form");
+    this.submitButton = this._form.querySelector(".popup__button");
   }
   setEventListeners() {
     super._setEventListeners();

@@ -4,7 +4,6 @@ import Section from "./components/Section.js";
 import Api from "./components/Api.js";
 import PopupRemove from "./components/PopupRemove.js";
 import {
-  initialCards,
   validationConfig,
   formAddCard,
   formEditProfile,
@@ -17,7 +16,9 @@ import {
   heading,
   headingDescription,
   avatar,
+  avatarImage,
 } from "./utils/constants.js";
+import waitingForLoad from "./utils/utils.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import UserInfo from "./components/UserInfo.js";
@@ -38,6 +39,7 @@ const imagePopupHandler = new PopupWithImage({ popupSelector: ".popup_image" });
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: ".popup-edit-profile",
   handleFormSubmit: (formValues) => {
+    waitingForLoad(popupEditProfileForm, "Сохранение...");
     //Редактируем информацию о пользователе если сервер удовлетворит запрос с методом PATCH
     api
       .editProfile(formValues)
@@ -45,16 +47,19 @@ const popupEditProfileForm = new PopupWithForm({
         userInfo.setUserInfo(result);
         popupEditProfileForm.closePopup();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(waitingForLoad(popupEditProfileForm, "Сохранить"));
   },
 });
 const popupAvatarForm = new PopupWithForm({
   popupSelector: ".popup-avatar",
   handleFormSubmit: (formValues) => {
+    waitingForLoad(popupAvatarForm, "Сохранение...");
     api
       .editAvatar(formValues.link)
-      .then((res) => (avatar.src = res.avatar))
-      .catch((err) => console.log(err));
+      .then((res) => (avatarImage.src = res.avatar))
+      .catch((err) => console.log(err))
+      .finally(waitingForLoad(popupAvatarForm, "Сохранить"));
   },
 });
 //Используем этот обьект класса Section для  доступа к его методу addItemPrepend()
@@ -64,13 +69,15 @@ const cardAdding = new Section({}, listContainerEl);
 const popupAddCardForm = new PopupWithForm({
   popupSelector: ".popup-add-card",
   handleFormSubmit: (formValues) => {
+    waitingForLoad(popupAddCardForm, "Создание...");
     api
       .addCard(formValues)
       .then((card) => {
         const newCard = createCard(card, userId, ".element-template");
         cardAdding.addItemPrepend(newCard);
       })
-      .catch((response) => console.log(`Ошибка ${response.status}`));
+      .catch((response) => console.log(`Ошибка ${response.status}`))
+      .finally(waitingForLoad(popupAddCardForm, "Создать"));
   },
 });
 
@@ -79,10 +86,12 @@ const popupRemoveCard = new PopupRemove({
   popupSelector: ".popup_remove",
   //Аргументы: id карточки и сама карточка для удаления
   handleFormSubmit: (idCard, cardRemove) => {
+    waitingForLoad(popupRemoveCard, "Удаление...");
     api
       .removeCard(idCard)
       .then(cardRemove.remove())
-      .catch((response) => console.log(`Ошибка ${response.status}`));
+      .catch((response) => console.log(`Ошибка ${response.status}`))
+      .finally(waitingForLoad(popupRemoveCard, "Да"));
   },
 });
 
@@ -179,6 +188,7 @@ addBtn.addEventListener("click", () => {
   cardFormValidator.resetForm();
   popupAddCardForm.openPopup();
 });
+
 avatar.addEventListener("click", () => {
   avatarFormValidator.resetForm();
   popupAvatarForm.openPopup();
