@@ -1,0 +1,15 @@
+.profile__avatar-container {
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/*.profile__avatar-container::before {
+  content: "";
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  transition: linear 0.25s;
+}*/
