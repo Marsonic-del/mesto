@@ -45,7 +45,7 @@ const popupEditProfileForm = new PopupWithForm({
       .editProfile(formValues)
       .then((result) => {
         userInfo.setUserInfo(result);
-        popupEditProfileForm.closePopup();
+        popupEditProfileForm.close();
       })
       .catch((err) => console.log(err))
       .finally(waitingForLoad(popupEditProfileForm, "Сохранить"));
@@ -62,7 +62,7 @@ const popupAvatarForm = new PopupWithForm({
       .finally(waitingForLoad(popupAvatarForm, "Сохранить"));
   },
 });
-//Используем этот обьект класса Section для  доступа к его методу addItemPrepend()
+//Используем этот обьект класса Section для  доступа к его методу prependItem()
 const cardAdding = new Section({}, listContainerEl);
 
 //Используем этот обьект для добавления карточек на страницу через попап '.popup-add-card'
@@ -74,7 +74,7 @@ const popupAddCardForm = new PopupWithForm({
       .addCard(formValues)
       .then((card) => {
         const newCard = createCard(card, userId, ".element-template");
-        cardAdding.addItemPrepend(newCard);
+        cardAdding.prependItem(newCard);
       })
       .catch((response) => console.log(`Ошибка ${response.status}`))
       .finally(waitingForLoad(popupAddCardForm, "Создать"));
@@ -89,9 +89,13 @@ const popupRemoveCard = new PopupRemove({
     waitingForLoad(popupRemoveCard, "Удаление...");
     api
       .removeCard(idCard)
-      .then(cardRemove.remove())
+      .then(
+        cardRemove.remove(),
+        popupRemoveCard.close(),
+        waitingForLoad(popupRemoveCard, "Да")
+      )
       .catch((response) => console.log(`Ошибка ${response.status}`))
-      .finally(waitingForLoad(popupRemoveCard, "Да"));
+      .finally(waitingForLoad(popupRemoveCard, "Да"), popupRemoveCard.close());
   },
 });
 
@@ -114,7 +118,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         items: cards,
         renderer: (card) => {
           const elementCard = createCard(card, userId, ".element-template");
-          cardList.addItem(elementCard);
+          cardList.appendItem(elementCard);
         },
       },
       listContainerEl
@@ -135,11 +139,11 @@ function createCard(cardElement, idUser, cardSelector) {
   const card = new Card(
     {
       handleCardClick: () => {
-        imagePopupHandler.openPopup(cardElement);
+        imagePopupHandler.open(cardElement);
       },
       //Аргументы: id карточки и сама карточка для удаления
       handleTrashClick: (idCard, cardRemove) =>
-        popupRemoveCard.openPopup(idCard, cardRemove),
+        popupRemoveCard.open(idCard, cardRemove),
 
       handleLikeClick: (idCard) => {
         if (!card.liked) {
@@ -176,7 +180,7 @@ function createCard(cardElement, idUser, cardSelector) {
 
 // Открываем попап редактирования (popupe-edit-profile)
 popupOpenButton.addEventListener("click", () => {
-  popupEditProfileForm.openPopup();
+  popupEditProfileForm.open();
   inputEditProfileName.value = heading.textContent;
   inputEditProfileAbout.value = headingDescription.textContent;
   inputEditProfileName.dispatchEvent(new Event("input"));
@@ -186,12 +190,12 @@ popupOpenButton.addEventListener("click", () => {
 // Слушатель на кнопку открытия второго попапа (для добавления карточки).
 addBtn.addEventListener("click", () => {
   cardFormValidator.resetForm();
-  popupAddCardForm.openPopup();
+  popupAddCardForm.open();
 });
 
 avatar.addEventListener("click", () => {
   avatarFormValidator.resetForm();
-  popupAvatarForm.openPopup();
+  popupAvatarForm.open();
 });
 
 // Создаем обьекты класса FormValidator для формы редактирования и формы добавления карточки

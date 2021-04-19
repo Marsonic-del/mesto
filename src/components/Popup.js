@@ -1,36 +1,38 @@
 export default class Popup {
-    constructor({popupSelector}) {
-        this._popupSelector = document.querySelector(popupSelector);
-        this._closeButton = this._popupSelector.querySelector('.popup__button-close');
-    }
-    
-    openPopup() {
-        this._popupSelector.classList.add('popup_opened');
-        this._escapeClose = this._handleEscClose.bind(this)
-        document.addEventListener('keydown', this._escapeClose);
-    }
+  constructor({ popupSelector }) {
+    this._popupElement = document.querySelector(popupSelector);
+    this._closeButton = this._popupElement.querySelector(
+      ".popup__button-close"
+    );
+    this._escapeClose = this._handleEscClose.bind(this);
+  }
 
-    closePopup() {
-        this._popupSelector.classList.remove('popup_opened');
-        document.removeEventListener('keydown', this._escapeClose);
-    }
+  open() {
+    this._popupElement.classList.add("popup_opened");
+    document.addEventListener("keydown", this._escapeClose);
+  }
 
-    _closePopupOverlay() {
-        this._popupSelector.addEventListener('click', (evt) => {
-            if(evt.target === evt.currentTarget) {
-              this.closePopup();
-            }
-          })
-        }
+  close() {
+    this._popupElement.classList.remove("popup_opened");
+    document.removeEventListener("keydown", this._escapeClose);
+  }
 
-    _handleEscClose(evt) {
-        if(evt.key === "Escape") {
-            this.closePopup()
-          }
+  _closePopupOverlay() {
+    this._popupElement.addEventListener("click", (evt) => {
+      if (evt.target === evt.currentTarget) {
+        this.close();
+      }
+    });
+  }
+
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
     }
-    
-    _setEventListeners() { 
-        this._closeButton.addEventListener('click', this.closePopup.bind(this))
-        this._closePopupOverlay()
-    }
+  }
+
+  setEventListeners() {
+    this._closeButton.addEventListener("click", this.close.bind(this));
+    this._closePopupOverlay();
+  }
 }
