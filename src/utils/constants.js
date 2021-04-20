@@ -1,11 +1,20 @@
+export const popupEditProfileSelector = ".popup-edit-profile";
+export const popupAddCardSelector = ".popup-add-card";
+export const popupImageSelector = ".popup_image";
+export const popupRemoveSelector = ".popup_remove";
+export const popupAvatarSelector = ".popup-avatar";
 export const addBtn = document.querySelector(".profile__add-button");
-export const avatar = document.querySelector(".profile__avatar-button");
+export const openAvatarPopupBtn = document.querySelector(
+  ".profile__avatar-button"
+);
 export const avatarImage = document.querySelector(".profile__avatar");
 export const popup = document.querySelector(".popup");
-export const popupEditProfile = document.querySelector(".popup-edit-profile");
-export const popupAddCard = document.querySelector(".popup-add-card");
+export const popupEditProfile = document.querySelector(
+  popupEditProfileSelector
+);
+export const popupAddCard = document.querySelector(popupAddCardSelector);
 export const popupOpenButton = document.querySelector(".profile__edit-button");
-export const popupAvatar = document.querySelector(".popup-avatar");
+export const popupAvatar = document.querySelector(popupAvatarSelector);
 export const heading = document.querySelector(".profile__heading");
 export const headingDescription = document.querySelector(
   ".profile__heading-description"
@@ -32,7 +41,7 @@ export const closeButtonEditProfile = popupEditProfile.querySelector(
 export const closeButtonAddCard = popupAddCard.querySelector(
   ".popup__button-close"
 );
-export const imagePopup = document.querySelector(".popup_image");
+export const imagePopup = document.querySelector(popupImageSelector);
 export const closeButtonImage = imagePopup.querySelector(
   ".popup__button-close"
 );
@@ -46,6 +55,11 @@ export const validationConfig = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
+};
+export const userInfoConfig = {
+  userNameSelector: ".profile__heading",
+  userAboutSelector: ".profile__heading-description",
+  userAvatarSelector: ".profile__avatar",
 };
 
 // Массив с карточками при загрузке страницы

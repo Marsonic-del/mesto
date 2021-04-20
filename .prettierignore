@@ -1,1 +1,7 @@
+# Ignore artifacts:
+.DS_Store
+.idea
+node_modules
+dist
+normalize.css
 *.html
