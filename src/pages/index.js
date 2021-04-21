@@ -22,7 +22,7 @@ import {
   popupRemoveSelector,
   popupAvatarSelector,
 } from '../utils/constants.js';
-import renderLoading from '../utils/utils.js';
+import { renderLoading } from '../utils/utils.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -44,10 +44,13 @@ const popupEditProfileForm = new PopupWithForm(popupEditProfileSelector, {
       .editProfile(formValues)
       .then((result) => {
         userInfo.setUserInfo(result);
-        renderLoading('Сохранить');
-        popupEditProfileForm.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        renderLoading('Сохранить');
+        //Если закрытие попапа прописать в then, то удаление класса popup__opened сработает быстрее чем функция renderLoading.
+        popupEditProfileForm.close();
+      });
   },
 });
 const popupAvatarForm = new PopupWithForm(popupAvatarSelector, {
@@ -57,10 +60,13 @@ const popupAvatarForm = new PopupWithForm(popupAvatarSelector, {
       .editAvatar(formValues.link)
       .then((res) => {
         avatarImage.src = res.avatar;
-        renderLoading('Сохранить');
-        popupAvatarForm.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        renderLoading('Сохранить');
+        //Если закрытие попапа прописать в then, то удаление класса popup__opened сработает быстрее чем функция renderLoading.
+        popupAvatarForm.close();
+      });
   },
 });
 //Используем этот обьект класса Section для  доступа к его методу prependItem()
@@ -75,10 +81,13 @@ const popupAddCardForm = new PopupWithForm(popupAddCardSelector, {
       .then((card) => {
         const newCard = createCard(card, userId, '.element-template');
         cardAdding.prependItem(newCard);
-        renderLoading('Создать');
-        popupAddCardForm.close();
       })
-      .catch((response) => console.log(`Ошибка ${response.status}`));
+      .catch((response) => console.log(`Ошибка ${response.status}`))
+      .finally(() => {
+        renderLoading('Создать');
+        //Если закрытие попапа прописать в then, то удаление класса popup__opened сработает быстрее чем функция renderLoading.
+        popupAddCardForm.close();
+      });
   },
 });
 
@@ -91,8 +100,14 @@ const popupRemoveCard = new PopupRemove(
       renderLoading('Удаление...');
       api
         .removeCard(idCard)
-        .then(cardRemove.remove(), renderLoading('Да'), popupRemoveCard.close())
-        .catch((response) => console.log(`Ошибка ${response.status}`));
+        .then(() => {
+          cardRemove.remove();
+        })
+        .catch((response) => console.log(`Ошибка ${response.status}`))
+        .finally(() => {
+          renderLoading('Да');
+          popupRemoveCard.close();
+        });
     },
   }
 );
